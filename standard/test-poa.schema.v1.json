@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wellmanifest.com/schemas/test-poa/v1.json",
+  "title": "Wellmanifest Test-POA Conformance Report",
+  "type": "object",
+  "required": [
+    "schema",
+    "version",
+    "project",
+    "summary",
+    "coverage",
+    "anomalies",
+    "attestation"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "wellmanifest.test-poa/v1"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "project": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "use_cases_count",
+        "processes_count",
+        "commands_count",
+        "queries_count",
+        "backend_endpoints_count",
+        "frontend_actions_count",
+        "anomalies_count"
+      ],
+      "properties": {
+        "use_cases_count": {"type": "integer", "minimum": 0},
+        "processes_count": {"type": "integer", "minimum": 0},
+        "commands_count": {"type": "integer", "minimum": 0},
+        "queries_count": {"type": "integer", "minimum": 0},
+        "backend_endpoints_count": {"type": "integer", "minimum": 0},
+        "frontend_actions_count": {"type": "integer", "minimum": 0},
+        "anomalies_count": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "coverage": {
+      "type": "object",
+      "required": ["matrix", "endpoint_mapping_percentage"],
+      "properties": {
+        "endpoint_mapping_percentage": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "matrix": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["use_case", "uri", "type", "html_urn", "js_urn", "backend_endpoint"],
+            "properties": {
+              "use_case": {"type": "string"},
+              "uri": {
+                "type": "string",
+                "pattern": "^proc://[a-z0-9.-]+/(cmd|query)/[a-z0-9_.-]+/[a-z0-9_.-]+/v[0-9]+$"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["command", "query"]
+              },
+              "html_urn": {"type": "string"},
+              "js_urn": {"type": "string"},
+              "backend_endpoint": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "anomalies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type", "severity", "description"],
+        "properties": {
+          "type": {"type": "string"},
+          "severity": {"type": "string", "enum": ["critical", "high", "medium", "low"]},
+          "description": {"type": "string"},
+          "action": {"type": "string"},
+          "count": {"type": "integer"}
+        }
+      }
+    },
+    "attestation": {
+      "type": "object",
+      "required": ["passed", "timestamp", "receipt"],
+      "properties": {
+        "passed": {"type": "boolean"},
+        "timestamp": {"type": "string"},
+        "receipt": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
