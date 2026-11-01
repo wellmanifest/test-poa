@@ -59,7 +59,13 @@
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["use_case", "uri", "type", "html_urn", "js_urn", "backend_endpoint"],
+            "required": ["use_case", "uri", "type", "backend_endpoint"],
+            "anyOf": [
+              {"required": ["html_urn", "js_urn"]},
+              {"required": ["gui_urn"]},
+              {"required": ["tui_urn"]},
+              {"required": ["cli_urn"]}
+            ],
             "properties": {
               "use_case": {"type": "string"},
               "uri": {
@@ -72,6 +78,9 @@
               },
               "html_urn": {"type": "string"},
               "js_urn": {"type": "string"},
+              "gui_urn": {"type": "string"},
+              "tui_urn": {"type": "string"},
+              "cli_urn": {"type": "string"},
               "backend_endpoint": {"type": "string"}
             },
             "additionalProperties": false

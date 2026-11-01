@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "1.0.0",
+  "ticketId": "ticket-001",
+  "title": "Support TUI/GUI/CLI URNs and wire validate_test_poa_report into CLI",
+  "owner": "antigravity",
+  "workstream": "application",
+  "status": "IN_PROGRESS",
+  "phase": "EDIT",
+  "allowedPaths": [
+    "project/ticket-001/**",
+    "standard/test-poa.schema.v1.json",
+    "standard/conformance.py",
+    "tests/test_conformance.py"
+  ]
+}
